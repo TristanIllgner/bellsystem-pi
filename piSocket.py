@@ -99,7 +99,7 @@ GPIO.output(relay, GPIO.LOW)
 connected = False
 while not connected:
     try:
-        sio.connect("http://192.168.0.105:3001")
+        sio.connect("http://192.168.110.216:3001")
         print("Socket established")
         connected = True
     except Exception as ex:
