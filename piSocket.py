@@ -4,6 +4,7 @@ import time
 import datetime
 import multiprocessing
 import os
+from dotenv import load_dotenv
 
 relay = 4
 
@@ -180,9 +181,10 @@ def disconnect():
     start_offline_ringer()
 
 GPIO.output(relay, GPIO.LOW)
+load_dotenv()
 while not connected:
     try:
-        sio.connect("http://192.168.110.225:80")
+        sio.connect(os.getenv("SERVER_URL", "http://192.168.110.225:80"))
         print("Socket established")
         connected = True
     except Exception as ex:
