@@ -155,18 +155,23 @@ def onSetTimesPi(data):
 @sio.on("bell-rung")
 def onBellRung(bell):
     global current_process, currently_ringing, patterns
+    
+    print("bell ringing process started")
 
     if bell is not None:
         bell_type = bell.get("type", None)
 
     if(currently_ringing is not None and bell is not None and currently_ringing.get("type") == bell_type):
+        print("don't ring")
         return
 
     currently_ringing = bell
 
     if bell != None:
+        print("ringing bell")
         start_process(patterns.get(bell_type, " "), isLoop.get(bell_type, False))
     elif current_process is not None:
+        print("stopping bell")
         current_process.terminate()
         current_process.join()
         GPIO.output(relay, GPIO.LOW)
